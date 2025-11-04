@@ -21,8 +21,8 @@ PARENT_DIR = os.path.dirname(SCRIPT_DIR)
 
 # 配置参数
 CONFIG = {
-    "input_dir": os.path.join(PARENT_DIR, "data", "financial_data"),
-    "output_dir": os.path.join(PARENT_DIR, "data", "financial_data_merged"),
+    "input_dir": "data\\financial_data",
+    "output_dir": "data\\financial_data_merged",
     "merged_file": "all_financial_data.csv"
 }
 

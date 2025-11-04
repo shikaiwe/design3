@@ -1,0 +1,355 @@
+{
+  "price_data": {
+    "original_shape": [
+      376895,
+      13
+    ],
+    "cleaned_shape": [
+      376895,
+      13
+    ],
+    "missing_values": {},
+    "outliers": {
+      "最高": {
+        "extreme_outliers": 1,
+        "extreme_outlier_ratio": 2.6532588652011833e-06
+      },
+      "成交量": {
+        "extreme_outliers": 1072,
+        "extreme_outlier_ratio": 0.0028442935034956687
+      },
+      "成交额": {
+        "extreme_outliers": 820,
+        "extreme_outlier_ratio": 0.0021756722694649703
+      },
+      "振幅": {
+        "extreme_outliers": 178,
+        "extreme_outlier_ratio": 0.00047228007800581063
+      },
+      "涨跌幅": {
+        "extreme_outliers": 143,
+        "extreme_outlier_ratio": 0.0003794160177237692
+      },
+      "涨跌额": {
+        "extreme_outliers": 1356,
+        "extreme_outlier_ratio": 0.0035978190212128044
+      },
+      "换手率": {
+        "extreme_outliers": 1031,
+        "extreme_outlier_ratio": 0.00273550989002242
+      }
+    },
+    "data_quality_score": 72.51409372163303,
+    "non_trading_days_removed": 0
+  },
+  "financial_data": {
+    "original_shape": [
+      6459,
+      42
+    ],
+    "cleaned_shape": [
+      6459,
+      42
+    ],
+    "missing_values": {
+      "TOTAL_LIABILITIES": {
+        "count": 3,
+        "ratio": 0.00046446818392940084
+      },
+      "TOTAL_EQUITY": {
+        "count": 12,
+        "ratio": 0.0018578727357176034
+      },
+      "ACCOUNTS_RECE": {
+        "count": 1107,
+        "ratio": 0.17138875986994892
+      },
+      "FIXED_ASSET": {
+        "count": 16,
+        "ratio": 0.002477163647623471
+      },
+      "INTANGIBLE_ASSET": {
+        "count": 40,
+        "ratio": 0.006192909119058678
+      },
+      "GOODWILL": {
+        "count": 2112,
+        "ratio": 0.3269856014862982
+      },
+      "SHARE_CAPITAL": {
+        "count": 15,
+        "ratio": 0.0023223409196470044
+      },
+      "CAPITAL_RESERVE": {
+        "count": 19,
+        "ratio": 0.002941631831552872
+      },
+      "SURPLUS_RESERVE": {
+        "count": 164,
+        "ratio": 0.02539092738814058
+      },
+      "UNASSIGN_RPOFIT": {
+        "count": 18,
+        "ratio": 0.002786809103576405
+      },
+      "OPERATE_INCOME": {
+        "count": 3,
+        "ratio": 0.00046446818392940084
+      },
+      "ASSET_IMPAIRMENT_LOSS": {
+        "count": 6316,
+        "ratio": 0.9778603498993652
+      },
+      "NETPROFIT": {
+        "count": 3,
+        "ratio": 0.00046446818392940084
+      },
+      "NETCASH_INVEST": {
+        "count": 3,
+        "ratio": 0.00046446818392940084
+      },
+      "NETCASH_FINANCE": {
+        "count": 49,
+        "ratio": 0.0075863136708468806
+      },
+      "TOTAL_CURRENT_ASSETS": {
+        "count": 1080,
+        "ratio": 0.1672085462145843
+      },
+      "TOTAL_NONCURRENT_ASSETS": {
+        "count": 1080,
+        "ratio": 0.1672085462145843
+      },
+      "TOTAL_CURRENT_LIAB": {
+        "count": 1080,
+        "ratio": 0.1672085462145843
+      },
+      "TOTAL_NONCURRENT_LIAB": {
+        "count": 1083,
+        "ratio": 0.1676730143985137
+      },
+      "MONETARYFUNDS": {
+        "count": 519,
+        "ratio": 0.08035299581978635
+      },
+      "INVENTORY": {
+        "count": 1194,
+        "ratio": 0.18485833720390155
+      },
+      "TOTAL_OPERATE_INCOME": {
+        "count": 1069,
+        "ratio": 0.16550549620684316
+      },
+      "OPERATE_COST": {
+        "count": 1072,
+        "ratio": 0.16596996439077258
+      },
+      "SALE_EXPENSE": {
+        "count": 1224,
+        "ratio": 0.18950301904319555
+      },
+      "MANAGE_EXPENSE": {
+        "count": 1072,
+        "ratio": 0.16596996439077258
+      },
+      "FINANCE_EXPENSE": {
+        "count": 1072,
+        "ratio": 0.16596996439077258
+      },
+      "RESEARCH_EXPENSE": {
+        "count": 1229,
+        "ratio": 0.1902771326830779
+      },
+      "SALES_SERVICES": {
+        "count": 1072,
+        "ratio": 0.16596996439077258
+      },
+      "BUY_SERVICES": {
+        "count": 1072,
+        "ratio": 0.16596996439077258
+      }
+    },
+    "outliers": {
+      "TOTAL_ASSETS": {
+        "extreme_outliers": 49,
+        "extreme_outlier_ratio": 0.0075863136708468806
+      },
+      "TOTAL_LIABILITIES": {
+        "extreme_outliers": 49,
+        "extreme_outlier_ratio": 0.0075863136708468806
+      },
+      "TOTAL_EQUITY": {
+        "extreme_outliers": 39,
+        "extreme_outlier_ratio": 0.006038086391082211
+      },
+      "TOTAL_PARENT_EQUITY": {
+        "extreme_outliers": 43,
+        "extreme_outlier_ratio": 0.006657377302988079
+      },
+      "ACCOUNTS_RECE": {
+        "missing_values": 1107,
+        "missing_ratio": 0.17138875986994892,
+        "extreme_outliers": 22,
+        "extreme_outlier_ratio": 0.0034061000154822726
+      },
+      "FIXED_ASSET": {
+        "extreme_outliers": 35,
+        "extreme_outlier_ratio": 0.005418795479176343
+      },
+      "INTANGIBLE_ASSET": {
+        "extreme_outliers": 59,
+        "extreme_outlier_ratio": 0.00913454095061155
+      },
+      "GOODWILL": {
+        "missing_values": 2112,
+        "missing_ratio": 0.3269856014862982,
+        "extreme_outliers": 15,
+        "extreme_outlier_ratio": 0.0023223409196470044
+      },
+      "SHARE_CAPITAL": {
+        "extreme_outliers": 65,
+        "extreme_outlier_ratio": 0.010063477318470352
+      },
+      "CAPITAL_RESERVE": {
+        "extreme_outliers": 17,
+        "extreme_outlier_ratio": 0.002631986375599938
+      },
+      "SURPLUS_RESERVE": {
+        "extreme_outliers": 26,
+        "extreme_outlier_ratio": 0.0040253909273881405
+      },
+      "UNASSIGN_RPOFIT": {
+        "extreme_outliers": 36,
+        "extreme_outlier_ratio": 0.00557361820715281
+      },
+      "OPERATE_INCOME": {
+        "extreme_outliers": 28,
+        "extreme_outlier_ratio": 0.004335036383341075
+      },
+      "ASSET_IMPAIRMENT_LOSS": {
+        "missing_values": 6316,
+        "missing_ratio": 0.9778603498993652,
+        "extreme_outliers": 21,
+        "extreme_outlier_ratio": 0.003251277287505806
+      },
+      "OPERATE_PROFIT": {
+        "extreme_outliers": 35,
+        "extreme_outlier_ratio": 0.005418795479176343
+      },
+      "TOTAL_PROFIT": {
+        "extreme_outliers": 35,
+        "extreme_outlier_ratio": 0.005418795479176343
+      },
+      "NETPROFIT": {
+        "extreme_outliers": 36,
+        "extreme_outlier_ratio": 0.00557361820715281
+      },
+      "PARENT_NETPROFIT": {
+        "extreme_outliers": 36,
+        "extreme_outlier_ratio": 0.00557361820715281
+      },
+      "NETCASH_OPERATE": {
+        "extreme_outliers": 31,
+        "extreme_outlier_ratio": 0.004799504567270475
+      },
+      "NETCASH_INVEST": {
+        "extreme_outliers": 31,
+        "extreme_outlier_ratio": 0.004799504567270475
+      },
+      "NETCASH_FINANCE": {
+        "extreme_outliers": 29,
+        "extreme_outlier_ratio": 0.004489859111317542
+      },
+      "TOTAL_CURRENT_ASSETS": {
+        "missing_values": 1080,
+        "missing_ratio": 0.1672085462145843,
+        "extreme_outliers": 31,
+        "extreme_outlier_ratio": 0.004799504567270475
+      },
+      "TOTAL_NONCURRENT_ASSETS": {
+        "missing_values": 1080,
+        "missing_ratio": 0.1672085462145843,
+        "extreme_outliers": 25,
+        "extreme_outlier_ratio": 0.003870568199411674
+      },
+      "TOTAL_CURRENT_LIAB": {
+        "missing_values": 1080,
+        "missing_ratio": 0.1672085462145843,
+        "extreme_outliers": 26,
+        "extreme_outlier_ratio": 0.0040253909273881405
+      },
+      "TOTAL_NONCURRENT_LIAB": {
+        "missing_values": 1083,
+        "missing_ratio": 0.1676730143985137,
+        "extreme_outliers": 21,
+        "extreme_outlier_ratio": 0.003251277287505806
+      },
+      "MONETARYFUNDS": {
+        "missing_values": 519,
+        "missing_ratio": 0.08035299581978635,
+        "extreme_outliers": 24,
+        "extreme_outlier_ratio": 0.0037157454714352067
+      },
+      "INVENTORY": {
+        "missing_values": 1194,
+        "missing_ratio": 0.18485833720390155,
+        "extreme_outliers": 56,
+        "extreme_outlier_ratio": 0.00867007276668215
+      },
+      "TOTAL_OPERATE_INCOME": {
+        "missing_values": 1069,
+        "missing_ratio": 0.16550549620684316,
+        "extreme_outliers": 37,
+        "extreme_outlier_ratio": 0.005728440935129277
+      },
+      "OPERATE_COST": {
+        "missing_values": 1072,
+        "missing_ratio": 0.16596996439077258,
+        "extreme_outliers": 37,
+        "extreme_outlier_ratio": 0.005728440935129277
+      },
+      "SALE_EXPENSE": {
+        "missing_values": 1224,
+        "missing_ratio": 0.18950301904319555,
+        "extreme_outliers": 39,
+        "extreme_outlier_ratio": 0.006038086391082211
+      },
+      "MANAGE_EXPENSE": {
+        "missing_values": 1072,
+        "missing_ratio": 0.16596996439077258,
+        "extreme_outliers": 35,
+        "extreme_outlier_ratio": 0.005418795479176343
+      },
+      "FINANCE_EXPENSE": {
+        "missing_values": 1072,
+        "missing_ratio": 0.16596996439077258,
+        "extreme_outliers": 19,
+        "extreme_outlier_ratio": 0.002941631831552872
+      },
+      "RESEARCH_EXPENSE": {
+        "missing_values": 1229,
+        "missing_ratio": 0.1902771326830779,
+        "extreme_outliers": 27,
+        "extreme_outlier_ratio": 0.0041802136553646075
+      },
+      "SALES_SERVICES": {
+        "missing_values": 1072,
+        "missing_ratio": 0.16596996439077258,
+        "extreme_outliers": 35,
+        "extreme_outlier_ratio": 0.005418795479176343
+      },
+      "BUY_SERVICES": {
+        "missing_values": 1072,
+        "missing_ratio": 0.16596996439077258,
+        "extreme_outliers": 37,
+        "extreme_outlier_ratio": 0.005728440935129277
+      }
+    },
+    "data_quality_score": 75.84532719305534
+  },
+  "processing_time": "2025-11-04 22:16:10",
+  "cleaning_methods": {
+    "missing_value": "时间序列插值/行业均值填充",
+    "outlier_detection": "3σ准则/IQR/分位数组合方法"
+  }
+}

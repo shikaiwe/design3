@@ -9,36 +9,44 @@ design3/
 ├── collector/                    # 数据收集模块
 │   ├── financial/               # 财务数据收集
 │   │   ├── financial_data.py    # 财务数据获取
-│   │   ├── financial_indicators_calculator.py # 财务指标计算
 │   │   └── merge_all_financial_data.py # 财务数据合并
 │   └── price/                   # 股价数据收集
 │       ├── price_data.py        # 股价数据获取
 │       └── merge_all_price_data.py # 股价数据合并
 ├── data/                        # 数据存储目录
-│   ├── daliy_prices/           # 日线股价数据
-│   ├── financial_data/         # 财务数据
-│   ├── factors/                # 因子数据
-│   └── EPU/                    # 经济政策不确定性数据
-├── data_cleaning_results/       # 数据清洗结果
+│   └── EPU/                     # 经济政策不确定性数据
+│       └── EPU_factors_description.txt # EPU因子说明
+├── data_clean/                  # 数据清洗模块
+│   ├── data_clean_result/       # 数据清洗结果目录
+│   └── optimized_data_cleaning.py # 优化的数据清洗脚本
+├── data_clean_result/           # 数据清洗结果
 │   ├── cleaned_data/           # 清洗后的数据
+│   ├── logs/                   # 日志文件
 │   ├── raw_data/               # 原始数据
 │   ├── reports/                # 清洗报告
 │   └── visualizations/         # 可视化图表
-├── data/                        # 数据目录
-│   ├── factories/              # 因子分类存储
-│   │   ├── momentum/            # 动量类因子
-│   │   ├── emotion/             # 情绪类因子
-│   │   ├── risk/                # 风险类因子
-│   │   └── technical/           # 技术指标类因子
-│   └── calculated_factors.csv  # 综合因子数据
-├── data_cleaning.py            # 数据清洗脚本
-├── optimized_data_cleaning.py   # 优化的数据清洗脚本
-├── factor_calculator.py        # 因子计算器
-├── compare_factors.py          # 因子比较分析
+├── factor/                      # 因子分析文档
+│   └── factors_analysis.md     # 因子分析文档
+├── factor_calculators/          # 因子计算器模块
+│   ├── __init__.py
+│   ├── base_calculator.py      # 基础计算器
+│   ├── basics_calculator.py    # 基础科目及衍生因子计算器
+│   ├── epu_factor_calculator.py # EPU因子计算器
+│   ├── factor_calculation.py   # 因子计算主程序
+│   ├── growth_calculator.py    # 成长类因子计算器
+│   ├── momentum_calculator.py  # 动量类因子计算器
+│   ├── new_style_calculator.py # 新风格因子计算器
+│   ├── per_share_calculator.py # 每股指标因子计算器
+│   ├── quality_calculator.py   # 质量类因子计算器
+│   ├── risk_calculator.py      # 风险类因子计算器
+│   ├── sentiment_calculator.py # 情绪类因子计算器
+│   ├── style_calculator.py     # 风格因子计算器
+│   └── technical_calculator.py # 技术指标类因子计算器
 ├── process_stock_index.py      # 股票指数处理
-├── factors_analysis.md          # 因子分析文档
-├── factor_calculation_report.md # 因子计算报告
-└── requirements.txt             # 项目依赖
+├── data_analysis_report.md     # 数据分析报告
+├── requirements.txt             # 项目依赖
+├── .gitignore                  # Git忽略文件
+└── README.md                   # 项目说明文档
 ```
 
 ## 安装依赖
@@ -71,6 +79,17 @@ pip install -r requirements.txt
 - **成长类因子** (9个): 营收增长率、净利润增长率等
 - **每股指标因子** (15个): 每股收益、每股净资产等
 - **基础科目及衍生类因子** (37个): 市值、市盈率等
+- **EPU因子** (10个): 经济政策不确定性相关因子，包括：
+  - 移动平均因子：EPU_MA3、EPU_MA6、EPU_MA12
+  - 变化率因子：EPU_MOM、EPU_QOQ、EPU_YOY
+  - 波动率因子：EPU_VOL3、EPU_VOL6、EPU_VOL12
+  - 相对位置因子：EPU_RANK12
+  - 极端值因子：EPU_HIGH_FLAG、EPU_LOW_FLAG
+  - 趋势因子：EPU_TREND12
+  - 周期性因子：EPU_MONTHLY_AVG、EPU_SEASONAL
+  - 加速度因子：EPU_ACCELERATION
+  - 离散度因子：EPU_DEVIATION_MA12
+  - 复合因子：EPU_COMPOSITE
 
 ### 4. 数据分析
 - **因子比较分析**: 比较计算的因子与标准因子的差异
@@ -106,10 +125,10 @@ python optimized_data_cleaning.py
 ### 3. 因子计算
 ```bash
 # 计算各类因子
-python factor_calculator.py
+python factor_calculators/factor_calculation.py
 
-# 比较因子计算结果
-python compare_factors.py
+# 计算EPU因子
+python factor_calculators/epu_factor_calculator.py
 ```
 
 ### 4. 股票指数处理
@@ -120,12 +139,13 @@ python process_stock_index.py
 
 ## 数据说明
 
-- **股价数据**: 存储在 `data/daliy_prices/` 目录下，格式为 `price_股票代码.csv`
-- **财务数据**: 存储在 `data/financial_data/` 目录下
-- **因子数据**: 分类存储在 `data/factories/` 目录下，按因子类型分类
-- **清洗后的数据**: 存储在 `data_cleaning_results/cleaned_data/` 目录下
-- **清洗报告**: 存储在 `data_cleaning_results/reports/` 目录下
-- **可视化图表**: 存储在 `data_cleaning_results/visualizations/` 目录下
+- **EPU数据**: 存储在 `data/EPU/` 目录下，包含经济政策不确定性指数数据
+- **清洗后的数据**: 存储在 `data_clean_result/cleaned_data/` 目录下
+- **原始数据**: 存储在 `data_clean_result/raw_data/` 目录下
+- **清洗报告**: 存储在 `data_clean_result/reports/` 目录下
+- **可视化图表**: 存储在 `data_clean_result/visualizations/` 目录下
+- **因子分析文档**: 详见 `factor/factors_analysis.md`
+- **数据分析报告**: 详见 `data_analysis_report.md`
 
 ## 项目依赖
 
@@ -149,12 +169,13 @@ python process_stock_index.py
 
 ## 项目报告
 
-- **因子分析**: 详见 `factors_analysis.md`
-- **因子计算报告**: 详见 `factor_calculation_report.md`
-- **数据清洗报告**: 存储在 `data_cleaning_results/reports/` 目录下
+- **因子分析**: 详见 `factor/factors_analysis.md`
+- **数据分析报告**: 详见 `data_analysis_report.md`
+- **数据清洗报告**: 存储在 `data_clean_result/reports/` 目录下
 
 ## 更新日志
 
+- 2025-06-18: 更新项目结构，添加EPU因子计算功能
 - 2025-11-03: 完成数据清洗和因子计算功能，支持9大类276个因子
 - 添加了数据清洗可视化和报告生成功能
 - 优化了因子计算性能，支持分类存储
