@@ -33,7 +33,7 @@ class PerShareCalculator(BaseFactorCalculator):
             'total_equity_to_ttm'           # 股东权益TTM
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算每股指标因子
         
@@ -41,12 +41,20 @@ class PerShareCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             每股指标因子DataFrame
         """
         # 准备数据
-        financial_df, price_df, index_df = self.prepare_data(financial_data, price_data, index_data)
+        financial_df, price_df, index_df, financial_indicator_df, industry_df = self.prepare_data(
+            financial_data, 
+            price_data, 
+            index_data, 
+            financial_indicator_data, 
+            industry_data
+        )
         
         # 获取最新日期的财务数据
         latest_financial = financial_df.loc[financial_df.groupby('stock_code')['REPORT_DATE'].idxmax()]

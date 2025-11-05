@@ -25,8 +25,8 @@ from per_share_calculator import PerShareCalculator
 from quality_calculator import QualityCalculator
 from risk_calculator import RiskCalculator
 from style_calculator import StyleCalculator
-from new_style_calculator import NewStyleCalculator
 from technical_calculator import TechnicalCalculator
+from financial_indicator_calculator import FinancialIndicatorCalculator
 
 class FactorCalculator:
     """因子计算主类"""
@@ -37,6 +37,9 @@ class FactorCalculator:
         self.financial_data_path = r"c:\Users\Administrator\Desktop\design3\data_clean_result\cleaned_data\cleaned_financial_data.csv"
         self.price_data_path = r"c:\Users\Administrator\Desktop\design3\data_clean_result\cleaned_data\cleaned_price_data.csv"
         self.index_data_path = r"c:\Users\Administrator\Desktop\design3\data\components\000300_SH_2019_2024.csv"
+        # 新增数据源
+        self.financial_indicator_path = r"c:\Users\Administrator\Desktop\design3\data\merged_data\financial_indicator_merged.csv"
+        self.industry_data_path = r"c:\Users\Administrator\Desktop\design3\data\components\hs300_industry.csv"
         
         # 结果保存路径
         self.output_path = r"c:\Users\Administrator\Desktop\design3\data\factories"
@@ -45,6 +48,8 @@ class FactorCalculator:
         self.financial_data = None
         self.price_data = None
         self.index_data = None
+        self.financial_indicator_data = None
+        self.industry_data = None
         
         # 初始化因子计算器
         self.calculators = {
@@ -56,8 +61,8 @@ class FactorCalculator:
             'quality': QualityCalculator(),
             'risk': RiskCalculator(),
             'style': StyleCalculator(),
-            'new_style': NewStyleCalculator(),
-            'technical': TechnicalCalculator()
+            'technical': TechnicalCalculator(),
+            'financial_indicator': FinancialIndicatorCalculator()
         }
     
     def load_data(self):
@@ -84,10 +89,20 @@ class FactorCalculator:
         self.index_data = pd.read_csv(self.index_data_path)
         self.index_data['date'] = pd.to_datetime(self.index_data['date'])
         
+        # 加载财务指标数据
+        self.financial_indicator_data = pd.read_csv(self.financial_indicator_path)
+        self.financial_indicator_data['date'] = pd.to_datetime(self.financial_indicator_data['date'])
+        
+        # 加载行业分类数据
+        self.industry_data = pd.read_csv(self.industry_data_path)
+        self.industry_data['date'] = pd.to_datetime(self.industry_data['date'])
+        
         print("数据加载完成")
         print(f"财务数据: {self.financial_data.shape}")
         print(f"价格数据: {self.price_data.shape}")
         print(f"指数数据: {self.index_data.shape}")
+        print(f"财务指标数据: {self.financial_indicator_data.shape}")
+        print(f"行业分类数据: {self.industry_data.shape}")
     
     def calculate_all_factors(self):
         """计算所有因子"""
@@ -96,30 +111,28 @@ class FactorCalculator:
         # 确保输出目录存在
         os.makedirs(self.output_path, exist_ok=True)
         
+        # 初始化所有因子字典
+        all_factors = {}
+        
         # 计算各类因子
-        for factor_type, calculator in self.calculators.items():
-            print(f"正在计算 {factor_type} 类因子...")
+        for name, calculator in self.calculators.items():
+            print(f"计算{name}因子...")
+            factor_data = calculator.calculate(
+                financial_data=self.financial_data,
+                price_data=self.price_data,
+                index_data=self.index_data,
+                financial_indicator_data=self.financial_indicator_data,
+                industry_data=self.industry_data
+            )
             
-            try:
-                # 计算因子
-                factor_data = calculator.calculate(
-                    self.financial_data, 
-                    self.price_data, 
-                    self.index_data
-                )
-                
-                # 保存结果
-                output_file = os.path.join(self.output_path, f"{factor_type}_factors.csv")
-                factor_data.to_csv(output_file, index=False)
-                
-                print(f"{factor_type} 类因子计算完成，已保存至 {output_file}")
-                print(f"计算了 {len(factor_data.columns) - 2} 个因子")  # 减去stock_code和date列
-                
-            except Exception as e:
-                print(f"计算 {factor_type} 类因子时出错: {str(e)}")
-                continue
+            # 保存因子数据
+            factor_path = os.path.join(self.output_path, f"{name}_factors.csv")
+            factor_data.to_csv(factor_path, index=False)
+            print(f"{name}因子已保存到: {factor_path}")
+            all_factors[name] = factor_data
         
         print("所有因子计算完成")
+        return all_factors
     
     def run(self):
         """运行因子计算"""

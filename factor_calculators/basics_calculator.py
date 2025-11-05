@@ -55,7 +55,7 @@ class BasicsCalculator(BaseFactorCalculator):
             'value_change_profit_ttm'       # 价值变动净收益TTM
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算基础科目及衍生类因子
         
@@ -63,12 +63,16 @@ class BasicsCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             基础科目及衍生类因子DataFrame
         """
         # 准备数据
-        financial_df, price_df, index_df = self.prepare_data(financial_data, price_data, index_data)
+        financial_df, price_df, index_df, financial_indicator_df, industry_df = self.prepare_data(
+            financial_data, price_data, index_data, financial_indicator_data, industry_data
+        )
         
         # 获取最新日期的财务数据
         latest_financial = financial_df.loc[financial_df.groupby('stock_code')['REPORT_DATE'].idxmax()]

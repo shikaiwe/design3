@@ -30,7 +30,7 @@ class RiskCalculator(BaseFactorCalculator):
             'maxdrawdown_120'        # 120日最大回撤
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算风险类因子
         
@@ -38,12 +38,20 @@ class RiskCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             风险类因子DataFrame
         """
         # 准备数据
-        financial_df, price_df, index_df = self.prepare_data(financial_data, price_data, index_data)
+        financial_df, price_df, index_df, financial_indicator_df, industry_df = self.prepare_data(
+            financial_data, 
+            price_data, 
+            index_data, 
+            financial_indicator_data, 
+            industry_data
+        )
         
         # 计算收益率
         price_df = self._calculate_returns(price_df)

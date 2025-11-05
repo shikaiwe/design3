@@ -27,7 +27,7 @@ class MomentumCalculator(BaseFactorCalculator):
             'VOLUME_RATIO_5D', 'VOLUME_RATIO_20D', 'VOLUME_RATIO_60D'    # 成交量比率
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算动量类因子
         
@@ -35,6 +35,8 @@ class MomentumCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             动量类因子DataFrame

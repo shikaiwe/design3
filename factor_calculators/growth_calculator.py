@@ -27,7 +27,7 @@ class GrowthCalculator(BaseFactorCalculator):
             'ROIC'                          # 投入资本回报率
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算成长类因子
         
@@ -35,12 +35,20 @@ class GrowthCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             成长类因子DataFrame
         """
         # 准备数据
-        financial_df, price_df, index_df = self.prepare_data(financial_data, price_data, index_data)
+        financial_df, price_df, index_df, financial_indicator_df, industry_df = self.prepare_data(
+            financial_data, 
+            price_data, 
+            index_data, 
+            financial_indicator_data, 
+            industry_data
+        )
         
         # 获取最新日期的财务数据
         latest_financial = financial_df.loc[financial_df.groupby('stock_code')['REPORT_DATE'].idxmax()]

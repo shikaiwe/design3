@@ -33,7 +33,7 @@ class SentimentCalculator(BaseFactorCalculator):
             'INDEX_RETURN'                              # 指数收益率
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算情绪类因子
         
@@ -41,6 +41,8 @@ class SentimentCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             情绪类因子DataFrame
@@ -107,8 +109,8 @@ class SentimentCalculator(BaseFactorCalculator):
             ma = price_df.groupby('stock_code')['close'].rolling(window=period).mean().reset_index()
             ma = ma.rename(columns={'close': ma_col})
             
-            # 获取最新日期的MA值
-            latest_ma = ma[ma['level_1'] == price_df.groupby('stock_code').cumcount().max()].reset_index(drop=True)
+            # 获取每只股票最新日期的MA值
+            latest_ma = ma.groupby('stock_code').last().reset_index()
             latest_ma = latest_ma[['stock_code', ma_col]]
             
             # 合并到结果
@@ -127,8 +129,8 @@ class SentimentCalculator(BaseFactorCalculator):
             std = price_df.groupby('stock_code')['close'].rolling(window=period).std().reset_index()
             std = std.rename(columns={'close': std_col})
             
-            # 获取最新日期的STD值
-            latest_std = std[std['level_1'] == price_df.groupby('stock_code').cumcount().max()].reset_index(drop=True)
+            # 获取每只股票最新日期的STD值
+            latest_std = std.groupby('stock_code').last().reset_index()
             latest_std = latest_std[['stock_code', std_col]]
             
             # 合并到结果

@@ -27,7 +27,7 @@ class TechnicalCalculator(BaseFactorCalculator):
             'stoch_d'                       # 随机指标D值
         ]
     
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算技术指标因子
         
@@ -35,12 +35,23 @@ class TechnicalCalculator(BaseFactorCalculator):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             技术指标因子DataFrame
         """
         # 准备数据
-        financial_df, price_df, index_df = self.prepare_data(financial_data, price_data, index_data)
+        financial_df, price_df, index_df, financial_indicator_df, industry_df = self.prepare_data(
+            financial_data, 
+            price_data, 
+            index_data, 
+            financial_indicator_data, 
+            industry_data
+        )
+        
+        # 映射中文列名为英文列名
+        price_df = self._map_chinese_columns(price_df)
         
         # 获取最新日期的数据
         latest_date = price_df['date'].max()
@@ -58,6 +69,44 @@ class TechnicalCalculator(BaseFactorCalculator):
         result = self._calculate_stochastic(result, price_df)
         
         return result
+    
+    def _map_chinese_columns(self, df):
+        """将中文列名映射为英文列名"""
+        # 检查是否已经存在英文列名，避免重复映射
+        if 'close' in df.columns and 'date' in df.columns:
+            # 如果已经有英文列名，可能已经映射过了，直接返回
+            return df
+            
+        column_mapping = {
+            '日期': 'date',
+            '股票代码': 'stock_code_cn',  # 避免与现有的stock_code列冲突
+            '开盘': 'open',
+            '收盘': 'close',
+            '最高': 'high',
+            '最低': 'low',
+            '成交量': 'volume',
+            '成交额': 'amount',
+            '振幅': 'amplitude',
+            '涨跌幅': 'change_pct',
+            '涨跌额': 'change_amount',
+            '换手率': 'turnover'
+        }
+        
+        # 只重命名存在的列
+        for chinese_col, english_col in column_mapping.items():
+            if chinese_col in df.columns and english_col not in df.columns:
+                df = df.rename(columns={chinese_col: english_col})
+        
+        # 确保date列是datetime类型
+        if 'date' in df.columns:
+            try:
+                df['date'] = pd.to_datetime(df['date'])
+            except Exception as e:
+                print(f"转换日期列时出错: {e}")
+                # 如果转换失败，尝试使用其他方法
+                pass
+        
+        return df
     
     def _calculate_rsi(self, result_df, price_df):
         """计算相对强弱指数(RSI)"""

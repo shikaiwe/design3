@@ -18,7 +18,7 @@ class BaseFactorCalculator(ABC):
         self.factor_names = []
     
     @abstractmethod
-    def calculate(self, financial_data, price_data, index_data):
+    def calculate(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         计算因子
         
@@ -26,13 +26,15 @@ class BaseFactorCalculator(ABC):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
             因子数据DataFrame
         """
         pass
     
-    def prepare_data(self, financial_data, price_data, index_data):
+    def prepare_data(self, financial_data, price_data, index_data, financial_indicator_data=None, industry_data=None):
         """
         准备和预处理数据
         
@@ -40,14 +42,36 @@ class BaseFactorCalculator(ABC):
             financial_data: 财务数据DataFrame
             price_data: 价格数据DataFrame
             index_data: 指数数据DataFrame
+            financial_indicator_data: 财务指标数据DataFrame (可选)
+            industry_data: 行业分类数据DataFrame (可选)
             
         返回:
-            处理后的数据元组 (financial_data, price_data, index_data)
+            处理后的数据元组 (financial_data, price_data, index_data, financial_indicator_data, industry_data)
         """
         # 复制数据以避免修改原始数据
         financial_df = financial_data.copy()
         price_df = price_data.copy()
         index_df = index_data.copy()
+        
+        # 处理财务指标数据
+        financial_indicator_df = None
+        if financial_indicator_data is not None:
+            financial_indicator_df = financial_indicator_data.copy()
+            if 'date' in financial_indicator_df.columns:
+                financial_indicator_df['date'] = pd.to_datetime(financial_indicator_df['date'])
+            
+            # 确保数值列为数值类型
+            numeric_cols = financial_indicator_df.select_dtypes(include=['object']).columns
+            for col in numeric_cols:
+                if col not in ['symbol']:
+                    financial_indicator_df[col] = pd.to_numeric(financial_indicator_df[col], errors='coerce')
+        
+        # 处理行业分类数据
+        industry_df = None
+        if industry_data is not None:
+            industry_df = industry_data.copy()
+            if 'date' in industry_df.columns:
+                industry_df['date'] = pd.to_datetime(industry_df['date'])
         
         # 确保日期格式正确
         if 'REPORT_DATE' in financial_df.columns:
@@ -95,7 +119,7 @@ class BaseFactorCalculator(ABC):
             if col not in ['instrument', 'date']:
                 index_df[col] = pd.to_numeric(index_df[col], errors='coerce')
         
-        return financial_df, price_df, index_df
+        return financial_df, price_df, index_df, financial_indicator_df, industry_df
     
     def calculate_ttm(self, data, value_col, date_col='REPORT_DATE', periods=4):
         """
