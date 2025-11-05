@@ -17,16 +17,16 @@ warnings.filterwarnings('ignore')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # 导入因子计算模块
-from .basics_calculator import BasicsCalculator
-from .sentiment_calculator import SentimentCalculator
-from .growth_calculator import GrowthCalculator
-from .momentum_calculator import MomentumCalculator
-from .per_share_calculator import PerShareCalculator
-from .quality_calculator import QualityCalculator
-from .risk_calculator import RiskCalculator
-from .style_calculator import StyleCalculator
-from .new_style_calculator import NewStyleCalculator
-from .technical_calculator import TechnicalCalculator
+from basics_calculator import BasicsCalculator
+from sentiment_calculator import SentimentCalculator
+from growth_calculator import GrowthCalculator
+from momentum_calculator import MomentumCalculator
+from per_share_calculator import PerShareCalculator
+from quality_calculator import QualityCalculator
+from risk_calculator import RiskCalculator
+from style_calculator import StyleCalculator
+from new_style_calculator import NewStyleCalculator
+from technical_calculator import TechnicalCalculator
 
 class FactorCalculator:
     """因子计算主类"""

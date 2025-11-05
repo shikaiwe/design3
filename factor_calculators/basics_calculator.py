@@ -7,7 +7,7 @@
 
 import pandas as pd
 import numpy as np
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 class BasicsCalculator(BaseFactorCalculator):
     """基础科目及衍生类因子计算器"""

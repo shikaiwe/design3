@@ -7,7 +7,7 @@
 
 import pandas as pd
 import numpy as np
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 class RiskCalculator(BaseFactorCalculator):
     """风险类因子计算器"""

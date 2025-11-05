@@ -7,7 +7,7 @@
 
 import pandas as pd
 import numpy as np
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 class GrowthCalculator(BaseFactorCalculator):
     """成长类因子计算器"""

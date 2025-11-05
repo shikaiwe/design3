@@ -7,7 +7,7 @@
 
 import pandas as pd
 import numpy as np
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 class NewStyleCalculator(BaseFactorCalculator):
     """新风格因子计算器"""

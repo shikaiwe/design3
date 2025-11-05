@@ -7,7 +7,7 @@
 
 import pandas as pd
 import numpy as np
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 class PerShareCalculator(BaseFactorCalculator):
     """每股指标因子计算器"""

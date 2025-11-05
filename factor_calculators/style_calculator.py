@@ -7,7 +7,7 @@
 
 import pandas as pd
 import numpy as np
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 class StyleCalculator(BaseFactorCalculator):
     """风格因子计算器"""
@@ -255,9 +255,11 @@ class StyleCalculator(BaseFactorCalculator):
     
     def _calculate_beta(self, result_df, price_df, index_df):
         """计算Beta值"""
-        # 计算收益率
+        # 计算收益率，使用transform确保索引对齐
         price_df = price_df.sort_values(['stock_code', 'date'])
-        price_df['return'] = price_df.groupby('stock_code')['close'].pct_change()
+        price_df['return'] = price_df.groupby('stock_code')['close'].transform(
+            lambda x: x.pct_change()
+        )
         
         # 计算指数收益率
         index_df = index_df.sort_values('date')
@@ -315,9 +317,11 @@ class StyleCalculator(BaseFactorCalculator):
     
     def _calculate_volatility(self, result_df, price_df):
         """计算波动率"""
-        # 计算收益率
+        # 计算收益率，使用transform确保索引对齐
         price_df = price_df.sort_values(['stock_code', 'date'])
-        price_df['return'] = price_df.groupby('stock_code')['close'].pct_change()
+        price_df['return'] = price_df.groupby('stock_code')['close'].transform(
+            lambda x: x.pct_change()
+        )
         
         # 获取最近60个交易日的数据
         latest_date = price_df['date'].max()

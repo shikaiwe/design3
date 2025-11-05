@@ -4,6 +4,6 @@
 因子计算器包初始化文件
 """
 
-from .base_calculator import BaseFactorCalculator
+from base_calculator import BaseFactorCalculator
 
 __all__ = ['BaseFactorCalculator']
